@@ -1,0 +1,118 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mus Artur | Música Oficial</title>
+    
+    <!-- SEO & Social Meta Tags -->
+    <meta name="description" content="Sitio oficial de Mus Artur. Música que inspira, mensajes de fe y esperanza. Escucha los últimos lanzamientos y conecta con el artista.">
+    <link rel="canonical" href="https://mus-artur-pagina.vercel.app">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://mus-artur-pagina.vercel.app">
+    <meta property="og:title" content="Mus Artur | Sitio Oficial">
+    <meta property="og:description" content="Explora la música, biografía y próximos lanzamientos de Mus Artur. El sonido de la esperanza.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?q=80&w=1200">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://mus-artur-pagina.vercel.app">
+    <meta property="twitter:title" content="Mus Artur | Música Oficial">
+    <meta property="twitter:description" content="Explora la música, biografía y próximos lanzamientos de Mus Artur.">
+    <meta property="twitter:image" content="https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?q=80&w=1200">
+
+    <meta name="theme-color" content="#020412">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --accent-blue: #2563eb;
+            --accent-glow: #3b82f6;
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: #020412;
+            color: #f1f5f9;
+            overflow-x: hidden;
+        }
+        .font-orbitron {
+            font-family: 'Orbitron', sans-serif;
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #020412;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e3a8a;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3b82f6;
+        }
+        .animate-spin-slow {
+            animation: spin 15s linear infinite;
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .blue-gradient-text {
+            background: linear-gradient(135deg, #60a5fa, #2563eb, #1e40af);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        #loader {
+            position: fixed;
+            inset: 0;
+            background: #020412;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 1s ease-out, visibility 1s;
+        }
+        .loaded #loader {
+            opacity: 0;
+            visibility: hidden;
+        }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "@google/genai": "https://esm.sh/@google/genai@^1.37.0",
+    "react": "https://esm.sh/react@^19.2.3",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react-dom": "https://esm.sh/react-dom@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
+    "framer-motion": "https://esm.sh/framer-motion@^12.26.2"
+  }
+}
+</script>
+</head>
+<body class="loading">
+    <div id="loader">
+        <div class="relative text-center">
+            <div class="w-24 h-24 border-4 border-blue-600/20 border-t-blue-600 rounded-full animate-spin mx-auto"></div>
+            <p class="mt-4 font-orbitron text-[10px] uppercase tracking-[0.3em] text-blue-500 animate-pulse">Iniciando Sistema...</p>
+        </div>
+    </div>
+    <div id="root"></div>
+    <script>
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.body.classList.remove('loading');
+                document.body.classList.add('loaded');
+            }, 800);
+        });
+    </script>
+</body>
+</html>

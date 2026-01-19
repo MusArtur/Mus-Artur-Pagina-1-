@@ -1,0 +1,7 @@
+{
+  "name": "Copy of Mus Artur | Official Web",
+  "description": "El sitio oficial de Mus Artur. Conecta con la música, el arte y la esperanza.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
