@@ -35,11 +35,12 @@ import { AppData, Song, Social, Message, Idea, UpcomingProject } from './types';
 const DEFAULT_LOGO = "https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?q=80&w=200&h=200&auto=format&fit=crop";
 const DEFAULT_BANNER = "https://images.unsplash.com/photo-1514525253361-bee87184f47a?auto=format&fit=crop&q=80&w=1200";
 
+// Extractor de ID de YouTube mejorado para soportar Shorts, Mobile y Music
 const getYTid = (url: string | undefined): string | null => {
   if (!url) return null;
-  const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
-  const match = url.match(regExp);
-  return (match && match[7].length === 11) ? match[7] : null;
+  const regex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=|shorts\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+  const match = url.match(regex);
+  return match ? match[1] : null;
 };
 
 const App: React.FC = () => {
@@ -421,13 +422,27 @@ const SocialIcon = ({ type, url, size = 'md' }: any) => {
   );
 };
 
+// Componente de Video reparado para evitar error 153 y problemas de configuración
 const VideoEmbed = ({ url }: any) => {
   const id = getYTid(url);
+  
   return id ? (
-    <div className="aspect-video w-full rounded-3xl overflow-hidden border border-white/10 bg-black shadow-2xl">
-      <iframe src={`https://www.youtube.com/embed/${id}?rel=0&modestbranding=1`} className="w-full h-full" allowFullScreen loading="lazy" />
+    <div className="aspect-video w-full rounded-3xl overflow-hidden border border-white/10 bg-black shadow-2xl relative">
+      <iframe 
+        src={`https://www.youtube-nocookie.com/embed/${id}?autoplay=0&rel=0&showinfo=0&iv_load_policy=3&modestbranding=1`}
+        title="Reproductor Mus Artur"
+        className="absolute inset-0 w-full h-full" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowFullScreen 
+        loading="lazy" 
+      />
     </div>
-  ) : <div className="aspect-video w-full bg-white/5 rounded-3xl flex items-center justify-center text-[10px] opacity-20 font-orbitron">ID DE VIDEO NO VÁLIDO</div>;
+  ) : (
+    <div className="aspect-video w-full bg-white/5 rounded-3xl flex flex-col items-center justify-center text-[10px] opacity-30 font-orbitron p-8 text-center space-y-4">
+      <Youtube size={32} className="text-red-500" />
+      <span className="uppercase tracking-[0.3em]">Enlace no reconocido o ID inválido</span>
+    </div>
+  );
 };
 
 const ContactForm = ({ onMessageSent }: any) => {
